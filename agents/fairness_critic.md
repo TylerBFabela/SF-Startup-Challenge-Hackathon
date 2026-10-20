@@ -8,7 +8,7 @@ All candidates and jobs are fictional files in `data/`.
 
 ## When a scorecard arrives from @Screener
 
-1. **Recall.** Run `python3 memory/cli.py recall "fairness issues and founder hiring preferences"`.
+1. **Recall.** Run exactly `python3 memory/cli.py recall "what does the founder value in candidates"`.
    Past blocked reasons and the founder's stated preferences tell you what to look for.
 2. **Check the scorecard.** Every reason must tie to a stated job requirement and to evidence in
    the candidate file. Send it back if it:

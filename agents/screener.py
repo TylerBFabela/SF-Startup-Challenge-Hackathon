@@ -42,17 +42,22 @@ def _is_repeat(tool: str, arg: str) -> bool:
     return last is not None and now - last < REPEAT_WINDOW_SECONDS
 
 
-class RecallMemory(BaseModel):
-    """Search the hiring desk's long-term memory for the founder's hiring preferences and past decisions."""
+# Memory search follows the wording of the question, so a role-specific query ("frontend engineer
+# preferences") misses what the founder said about another role. Always ask the role-neutral question.
+GENERAL_RECALL_QUERY = "what does the founder value in candidates"
 
-    query: str = Field(..., description="What to look up, e.g. 'frontend engineer hiring preferences'")
+
+class RecallMemory(BaseModel):
+    """Look up what the founder has said they value in candidates and their past hiring decisions."""
+
+    query: str = Field(default="", description="Optional and ignored; the lookup is always the same.")
 
 
 def recall_memory(args: RecallMemory) -> str:
-    if _is_repeat("recall", args.query):
+    if _is_repeat("recall", GENERAL_RECALL_QUERY):
         return REPEAT_NUDGE
     try:
-        results = memory.recall(args.query)
+        results = memory.recall(GENERAL_RECALL_QUERY)
     except memory.MemoryUnavailable as e:
         return f"Memory is unavailable right now ({e}). Continue without it and say so."
     return "\n".join(f"- {r}" for r in results) or "(no relevant memories)"
@@ -91,8 +96,9 @@ sends you one candidate at a time. The Fairness Critic checks every scorecard be
 
 For each assignment:
 1. Use read_data_file to read the job file, data/rubric.md, and the candidate file named in the message.
-2. Use recall_memory once, looking up the founder's hiring preferences for this kind of role. If a
-   remembered preference applies, use it when you weigh the evidence, and name it in the scorecard.
+2. Use recall_memory once. It returns what the founder has said they value and decided in past
+   searches, for any role. If a remembered preference applies, use it when you weigh the evidence,
+   and name it in the scorecard under "Memory used".
 3. Write a compact scorecard in exactly this shape:
    SCORECARD | <candidate> | <role>
    Skills fit x/5 | Shipped impact x/5 | Ownership x/5 | Total xx/15

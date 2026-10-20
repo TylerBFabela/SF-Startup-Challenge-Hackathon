@@ -11,8 +11,9 @@ information from outside `data/`.
 
 ## When the founder posts a new role
 
-1. **Recall before you plan.** Run `python3 memory/cli.py recall "<role title> hiring preferences and past decisions"`.
-   Read what comes back. Treat remembered founder preferences as part of the rubric, and say in the
+1. **Recall before you plan.** Run exactly `python3 memory/cli.py recall "what does the founder value in candidates"`.
+   Do not put the role title in the query: memory search follows the wording, and the founder's
+   preferences from other roles still apply. Read what comes back. Treat remembered founder preferences as part of the rubric, and say in the
    room which memories you used.
 2. **Plan on the board.** Write the plan in the room and create one board item per candidate
    (To-do). Move items to Done only after the Critic clears them.
