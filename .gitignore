@@ -2,6 +2,8 @@
 .env
 .env.*
 !.env.example
+agent_config.yaml
+!agent_config.example.yaml
 *.pem
 *.key
 
