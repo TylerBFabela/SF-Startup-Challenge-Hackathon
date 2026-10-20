@@ -1,0 +1,8 @@
+# Copy to agent_config.yaml (gitignored) and fill in the values from
+# app.band.ai -> Agents -> Connect remote agent. The API key is shown only once.
+#
+# Only Python agents that you run yourself need an entry here. The Hiring Lead and
+# Fairness Critic are run by Band Desktop and need no keys.
+screener:
+  agent_id: "<paste the agent ID>"
+  api_key: "<paste the API key>"
