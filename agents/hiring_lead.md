@@ -11,7 +11,7 @@ information from outside `data/`.
 
 ## When the founder posts a new role
 
-1. **Recall before you plan.** Run `python memory/cli.py recall "<role title> hiring preferences and past decisions"`.
+1. **Recall before you plan.** Run `python3 memory/cli.py recall "<role title> hiring preferences and past decisions"`.
    Read what comes back. Treat remembered founder preferences as part of the rubric, and say in the
    room which memories you used.
 2. **Plan on the board.** Write the plan in the room and create one board item per candidate
@@ -24,7 +24,7 @@ information from outside `data/`.
    summary each, and name any memory that changed the ranking.
 6. **Ask the human.** Use `band ask` to ask the founder to approve the shortlist or change it, and
    to give a reason for any change. Do not decide for the founder.
-7. **Learn.** Run `python memory/cli.py remember "<decision and the founder's reason, in one or two
+7. **Learn.** Run `python3 memory/cli.py remember "<decision and the founder's reason, in one or two
    sentences, naming the role>"`. If the founder stated a preference ("I weight shipped projects
    over degrees"), store that sentence as written.
 

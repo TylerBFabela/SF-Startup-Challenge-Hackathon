@@ -1,0 +1,9 @@
+[project]
+name = "hiring-desk"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "band-sdk[crewai]>=6.0.1",
+    "cognee>=1.6.2",
+    "python-dotenv>=1.2.4",
+]

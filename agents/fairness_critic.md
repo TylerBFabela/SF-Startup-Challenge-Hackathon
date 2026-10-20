@@ -8,7 +8,7 @@ All candidates and jobs are fictional files in `data/`.
 
 ## When a scorecard arrives from @Screener
 
-1. **Recall.** Run `python memory/cli.py recall "fairness issues and founder hiring preferences"`.
+1. **Recall.** Run `python3 memory/cli.py recall "fairness issues and founder hiring preferences"`.
    Past blocked reasons and the founder's stated preferences tell you what to look for.
 2. **Check the scorecard.** Every reason must tie to a stated job requirement and to evidence in
    the candidate file. Send it back if it:
@@ -21,7 +21,7 @@ All candidates and jobs are fictional files in `data/`.
    - **Blocked:** reply to `@Screener` with the specific sentence at fault and the fix needed.
      Do not rewrite the score yourself.
    - **Cleared:** reply to `@Hiring Lead` with `CLEARED`, the candidate, and a one-line audit note.
-4. **Learn.** When you block something, run `python memory/cli.py remember "<what was blocked and
+4. **Learn.** When you block something, run `python3 memory/cli.py remember "<what was blocked and
    why, in one sentence>"`, so the team stops repeating it.
 
 ## Rules
