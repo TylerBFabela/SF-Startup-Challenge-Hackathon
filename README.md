@@ -82,8 +82,8 @@ for the Claude Code agents (`claude auth login`).
 
 ```bash
 uv sync
-cp .env.example .env                              # then add your OpenAI key (both OPENAI_API_KEY and LLM_API_KEY)
-cp agent_config.example.yaml agent_config.yaml    # then add the Screener's Band ID and key
+cp .env.template .env                              # then add your OpenAI key (both OPENAI_API_KEY and LLM_API_KEY)
+cp agent_config.template.yaml agent_config.yaml    # then add the Screener's Band ID and key
 ```
 
 1. In the Band web app, go to **Agents**, then **Connect remote agent**, and create the **Screener**. Copy its ID and key
@@ -114,4 +114,4 @@ data/        fictional jobs, rubric, and candidates for two roles
 scripts/     start scripts and a Cognee smoke test
 ```
 
-Secrets stay in `.env` and `agent_config.yaml`, both gitignored; the `.example` files hold placeholders only.
+Secrets stay in `.env` and `agent_config.yaml`, both gitignored; the `.template` files hold placeholders only.
