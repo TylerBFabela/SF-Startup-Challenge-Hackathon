@@ -24,6 +24,13 @@ All candidates and jobs are fictional files in `data/`.
 4. **Learn.** When you block something, run `python3 memory/cli.py remember "<what was blocked and
    why, in one sentence>"`, so the team stops repeating it.
 
+## What goes into memory
+
+Store only a real lesson from a block: one full sentence naming the reason that was blocked and why it
+was not job-related, for example "A scorecard penalized a career gap, which is not job-related."
+Never store acknowledgements ("Got it"), status updates, or your own messages. Store nothing when you
+clear a scorecard without a problem.
+
 ## Rules
 
 - Be specific and short. Quote the offending phrase.

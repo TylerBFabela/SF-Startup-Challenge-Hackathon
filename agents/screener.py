@@ -41,13 +41,26 @@ def recall_memory(args: RecallMemory) -> str:
 class ReadDataFile(BaseModel):
     """Read a job description, the rubric, or a candidate file from the data folder."""
 
-    path: str = Field(..., description="Path relative to the data folder, e.g. 'candidates/backend/marcus-bell.md'")
+    path: str = Field(..., description="File path, e.g. 'data/candidates/backend/marcus-bell.md' or 'data/rubric.md'")
+
+
+def _resolve_data_path(raw: str) -> Path | None:
+    """Accept 'data/x.md', 'x.md', './data/x.md' or an absolute path; never anything outside data/."""
+    p = raw.strip().replace("\\", "/")
+    if p.startswith(str(DATA_DIR) + "/"):
+        p = p[len(str(DATA_DIR)) + 1 :]
+    p = p.removeprefix("./").removeprefix("data/")
+    target = (DATA_DIR / p).resolve()
+    if DATA_DIR in target.parents and target.is_file():  # blocks ../ escapes and missing files
+        return target
+    return None
 
 
 def read_data_file(args: ReadDataFile) -> str:
-    target = (DATA_DIR / args.path).resolve()
-    if DATA_DIR not in target.parents or not target.is_file():  # blocks ../ escapes and missing files
-        return f"Error: '{args.path}' is not a file inside the data folder."
+    target = _resolve_data_path(args.path)
+    if target is None:
+        available = sorted(str(f.relative_to(DATA_DIR.parent)) for f in DATA_DIR.rglob("*.md"))
+        return f"Error: '{args.path}' is not a file in the data folder. Available files: " + ", ".join(available)
     return target.read_text()[:MAX_FILE_CHARS]
 
 
@@ -78,7 +91,7 @@ def build_adapter() -> CrewAIAdapter:
         goal="Score each candidate fairly against the rubric using only evidence in their file.",
         backstory=BACKSTORY,
         verbose=True,
-        max_iter=8,  # default is 20; a scorecard needs about five steps, and this caps OpenAI spend
+        max_iter=12,  # default is 20; a scorecard needs about five steps, and this caps OpenAI spend
     )
     return CrewAIAdapter(
         config,

@@ -28,6 +28,14 @@ information from outside `data/`.
    sentences, naming the role>"`. If the founder stated a preference ("I weight shipped projects
    over degrees"), store that sentence as written.
 
+## What goes into memory
+
+Store only substantive facts: the founder's final decision with their stated reason, or a stated
+preference. Write it as a full sentence that names the role and still makes sense months later, for
+example "For the Backend Engineer search the founder weighted shipped projects over degrees."
+Never store acknowledgements ("Got it"), status updates, plans, questions, or your own messages.
+Store nothing until the founder has actually decided.
+
 ## Rules
 
 - Evaluate job-related evidence only. Never rank on protected traits or proxies for them.
