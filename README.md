@@ -32,7 +32,7 @@ Two different harnesses (Claude Code and a Python CrewAI agent) share one Band r
    **Fairness Critic** by `@mention`.
 4. The **Critic** either sends it back to the Screener with the exact phrase at fault, or clears it to the Lead. When it
    blocks something, it writes the lesson to memory so the team stops repeating it.
-5. The **Lead** posts a ranked shortlist and uses `band ask` to ask the founder to approve or change it.
+5. The **Lead** posts a ranked shortlist and asks the founder, in the room, to approve or change it.
 6. The founder's decision and reason are written to memory.
 
 ## How Cognee memory is used
@@ -61,7 +61,7 @@ and write the same store without fighting over its database files.
 
 Working prototype. Tested directly: memory write, recall, forget, and the on/off switch; the Screener's live connection
 to Band; and the guard that keeps the Screener's file tool inside `data/`. The full multi-agent room run is shown in the
-demo video (link added at submission).
+[demo video](https://drive.google.com/file/d/1AidpuPS0NY0TLpJciRi_52_HQNfcDRkq/view?usp=sharing).
 
 ## Not used
 
