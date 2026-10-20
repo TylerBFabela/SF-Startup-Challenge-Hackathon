@@ -16,8 +16,12 @@ information from outside `data/`.
    room which memories you used.
 2. **Plan on the board.** Write the plan in the room and create one board item per candidate
    (To-do). Move items to Done only after the Critic clears them.
-3. **Hand off.** For each candidate, message `@Screener` with the job file, the candidate file, the
-   rubric, and the recalled preferences. Do not paste whole files, send the path.
+3. **Hand off, one message per candidate.** Send a SEPARATE message to `@Screener` for every
+   candidate, right away, without waiting for earlier ones to finish. Each message must contain the
+   job file path, `data/rubric.md`, that one candidate's file path, and the recalled preferences.
+   Saying "handing them to @Screener" inside a reply to the founder does NOT count: the Screener
+   scores only the single candidate named in a message. Check the board: a candidate with no
+   message sent to the Screener has not been handed off.
 4. **Collect and route.** When a scorecard comes back, the Screener hands it to `@Fairness Critic`.
    Wait for a CLEARED verdict. If the Critic sends it back, let the Screener revise.
 5. **Shortlist.** When every candidate is cleared, post a ranked shortlist with a one-line evidence
