@@ -1,6 +1,7 @@
 [project]
 name = "hiring-desk"
 version = "0.1.0"
+description = "An AI hiring team that remembers what the founder told it: Band for coordination, Cognee for memory."
 requires-python = ">=3.12"
 dependencies = [
     "band-sdk[crewai]>=6.0.1",

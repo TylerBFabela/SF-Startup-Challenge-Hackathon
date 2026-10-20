@@ -118,7 +118,7 @@ no answer from you, call band_no_reply once and stop."""
 
 def build_adapter() -> CrewAIAdapter:
     config = CrewAIAdapterConfig(
-        model=os.getenv("SCREENER_MODEL", "gpt-6-luna"),  # the SDK's recommended default; gpt-4o-mini looped on sends
+        model=os.getenv("SCREENER_MODEL", "gpt-6-luna"),  # the Band SDK's recommended default
         role="Screener",
         goal="Score each candidate fairly against the rubric using only evidence in their file.",
         backstory=BACKSTORY,
