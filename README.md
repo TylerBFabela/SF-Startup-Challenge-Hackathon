@@ -19,7 +19,7 @@ memory, so the next role starts smarter.
 | Agent | Runs as | Model | Job |
 |---|---|---|---|
 | **Hiring Lead** | Claude Code, run by Band Desktop | Claude Sonnet, low effort | Writes the plan on the board, hands out candidates, builds the shortlist, asks the founder to decide |
-| **Screener** | Python agent using the Band SDK and CrewAI | OpenAI `gpt-4o-mini` | Reads the job and one candidate, recalls the founder's preferences, writes a scorecard |
+| **Screener** | Python agent using the Band SDK and CrewAI | OpenAI `gpt-6-luna` | Reads the job and one candidate, recalls the founder's preferences, writes a scorecard |
 | **Fairness Critic** | Claude Code, run by Band Desktop | Claude Sonnet, low effort | Blocks any scorecard whose reasons are not job-related, or that ignores a remembered preference |
 
 Two different harnesses (Claude Code and a Python CrewAI agent) share one Band room.

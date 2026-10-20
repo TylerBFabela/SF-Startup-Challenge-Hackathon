@@ -7,6 +7,7 @@ hands every scorecard to the Fairness Critic. Start it with scripts/start_screen
 import asyncio
 import logging
 import os
+import time
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -24,6 +25,23 @@ DATA_DIR = (Path(__file__).resolve().parent.parent / "data").resolve()
 MAX_FILE_CHARS = 20_000
 
 
+_recent: dict[tuple[str, str], float] = {}
+REPEAT_WINDOW_SECONDS = 45.0
+REPEAT_NUDGE = (
+    "You already did exactly this a moment ago and have the result in this conversation. "
+    "Do not repeat it. Write the scorecard now and send it once with band_send_message."
+)
+
+
+def _is_repeat(tool: str, arg: str) -> bool:
+    """True if this exact tool call just happened. Breaks the read/recall loops weaker models fall into."""
+    now = time.monotonic()
+    key = (tool, arg.strip().lower())
+    last = _recent.get(key)
+    _recent[key] = now
+    return last is not None and now - last < REPEAT_WINDOW_SECONDS
+
+
 class RecallMemory(BaseModel):
     """Search the hiring desk's long-term memory for the founder's hiring preferences and past decisions."""
 
@@ -31,6 +49,8 @@ class RecallMemory(BaseModel):
 
 
 def recall_memory(args: RecallMemory) -> str:
+    if _is_repeat("recall", args.query):
+        return REPEAT_NUDGE
     try:
         results = memory.recall(args.query)
     except memory.MemoryUnavailable as e:
@@ -57,6 +77,8 @@ def _resolve_data_path(raw: str) -> Path | None:
 
 
 def read_data_file(args: ReadDataFile) -> str:
+    if _is_repeat("read", args.path):
+        return REPEAT_NUDGE
     target = _resolve_data_path(args.path)
     if target is None:
         available = sorted(str(f.relative_to(DATA_DIR.parent)) for f in DATA_DIR.rglob("*.md"))
@@ -81,17 +103,21 @@ For each assignment:
    Do not send it to the Hiring Lead; the Critic forwards it once it is cleared.
 
 If the Fairness Critic sends a scorecard back, fix exactly what it names and send the revised
-scorecard to the Fairness Critic again. Keep messages short."""
+scorecard to the Fairness Critic again. Keep messages short.
+
+IMPORTANT: send exactly ONE message per assignment. Once band_send_message returns success, your
+turn is over: do not call any more tools, and do not send the scorecard again. If a message needs
+no answer from you, call band_no_reply once and stop."""
 
 
 def build_adapter() -> CrewAIAdapter:
     config = CrewAIAdapterConfig(
-        model=os.getenv("SCREENER_MODEL", "gpt-4o-mini"),
+        model=os.getenv("SCREENER_MODEL", "gpt-6-luna"),  # the SDK's recommended default; gpt-4o-mini looped on sends
         role="Screener",
         goal="Score each candidate fairly against the rubric using only evidence in their file.",
         backstory=BACKSTORY,
         verbose=True,
-        max_iter=12,  # default is 20; a scorecard needs about five steps, and this caps OpenAI spend
+        max_iter=8,  # default is 20; a scorecard needs about five steps, and this caps OpenAI spend
     )
     return CrewAIAdapter(
         config,
